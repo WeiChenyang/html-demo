@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="UTF-8">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Loading</title>
+  <link rel="stylesheet" href="./loading/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./loading/loading.css">
+  <style>
+		div{
+			width: 200px;
+			height:200px;
+			text-align: center;
+			margin: 0 auto;
+		}
+		input{
+			width: 100px;
+			height: 60px;
+			margin-left: 100px;
+			margin-top: 100px;
+			text-align: center;
+			margin: 30% auto;
+		}
+  </style>
+ </head>
+ <body>
+ 	<div>
+		<input type="button" value="Click Me!" onclick="loadingEvent(true)"/>
+	</div>
+	<script src="./loading/js/jquery.min.js"></script>
+	<script src="./loading/js/loading.js"></script>
+	<script>
+		function loadingEvent(flag){
+			// 显示:true  /  隐藏:false
+			showLoading(flag);
+			setTimeout("loadingEvent(false)","3000");
+		}
+	</script>
+ </body>
+</html>
