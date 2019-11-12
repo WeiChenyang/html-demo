@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- 横向导航栏 -->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+		<title>横向导航栏</title>
+		<style>
+			/*标签选择器 */
+			body{
+				/*字体*/
+				font-family:Cambria,Arial;
+				/*背景颜色 颜色代码规则： # 6位十六进制数  从#000000（黑）~ #ffffff（白）*/
+				background:#333;
+			}
+			/*css 类选择器  .类名{}*/
+			.tabs{
+				/*宽*/
+				width:100%;
+				/*最大宽度*/
+				max-width:900px;
+				/*外边距 即div和div之间的距离*/
+				margin:50px auto;
+			}
+			/*标签选择器 */
+			input{
+				/*设置不透明级别*/
+				opacity:0;
+			}
+			/*标签选择器 */
+			label{
+				/*
+					定义鼠标样式
+					[<uri> ,]*: 根据用户定义的资源显示
+					auto: 正常鼠标
+					crosshair: 十字鼠标
+					default: 默认鼠标
+					pointer: 点状鼠标
+					move: 移动鼠标
+					e-resize,ne-resize,nw-resize,n-resize,se-resize,sw-resize,s-resize,w-resize: 改变大小鼠标
+					text: 文字鼠标
+					wait: 等待鼠标
+					help: 求助鼠标
+					progress: 过程鼠标
+					inherit: 继承
+				*/
+				cursor:pointer;
+				/*CSS3 Gradient分为linear-gradient(线性渐变)和radial-gradient(径向渐变)*/
+				background:-webkit-linear-gradient(top,#666,#555);
+				color:#eee;
+				/*向 div 元素添加圆角边框：*/
+				border-radius:5px 5px 0 0;
+				/*内边距  外边距margin*/
+				padding:1.5% 3%;
+				/*定义元素在哪浮动 left right centers*/
+				float:left;
+				/*右外边距*/
+				margin-right:2px;
+				/*字体*/
+				font:1em cambria;
+			}
+			/*鼠标在悬浮状态下移动到label上  （鼠标放在label上不点击）*/
+			label:hover{
+				background:-webkit-linear-gradient(#777,#666);
+			}
+			/*标签选择器 */
+			input:checked+label{
+				background:#fff;
+				color:#333;
+			}
+			/*
+				部分选择器：
+				p:nth-of-type(n)  : 选择属于其父元素第二个 <p> 元素的每个 <p> 元素。
+				p:first-child     ：选择属于父元素的第一个子元素的每个 <p> 元素。
+				p:nth-child(2)    : 选择属于其父元素的第二个子元素的每个 <p> 元素。
+				p:last-child      : 选择属于其父元素最后一个子元素每个 <p> 元素。
+				input:checked     : 选择每个被选中的 <input> 元素。
+			*/
+			.tabs input:nth-of-type(1):checked ~ .panels .panel:first-child,
+			.tabs input:nth-of-type(2):checked ~ .panels .panel:nth-child(2),
+			.tabs input:nth-of-type(3):checked ~ .panels .panel:nth-child(3),
+			.tabs input:nth-of-type(4):checked ~ .panels .panel:last-child{
+				/*设置不透明级别*/
+				opacity:1;
+				/*属性渐变*/
+				-webkit-transition: .3s;
+			}
+			/*css 类选择器  .类名{}*/
+			.panels{
+				float:left;
+				/*图像的左侧和右侧均不允许出现浮动元素*/
+				clear:both;
+				/*
+					position 定位  属性值的含义：
+					static
+					元素框正常生成。块级元素生成一个矩形框，作为文档流的一部分，行内元素则会创建一个或多个行框，置于其父元素中。
+					relative
+					元素框偏移某个距离。元素仍保持其未定位前的形状，它原本所占的空间仍保留。
+					absolute
+					元素框从文档流完全删除，并相对于其包含块定位。包含块可能是文档中的另一个元素或者是初始包含块。
+					元素原先在正常文档流中所占的空间会关闭，就好像元素原来不存在一样。元素定位后生成一个块级框，而不论原来它在正常流中生成何种类型的框。
+					fixed
+					元素框的表现类似于将 position 设置为 absolute，不过其包含块是视窗本身。
+				*/
+				position:relative;
+				width:100%;
+				background:#fff;
+				/*向 div 元素添加圆角边框：*/
+				border-radius:0 10px 10px 10px;
+				min-height:315px;
+			}
+			/*css 类选择器  .类名{}*/
+			.panel{
+				width:100%;
+				/*设置不透明级别*/
+				opacity:0;
+				/*元素定位*/
+				position:absolute;
+				background:#fff;
+				/*向 div 元素添加圆角边框：*/
+				border-radius:0 10px 10px 10px;
+				/*内边距  外边距margin*/
+				padding:4%;
+				/*
+				box-sizing属性可以为三个值之一：content-box（default），border-box，padding-box。
+				content-box，border和padding不计算入width之内
+				padding-box，padding计算入width内
+				border-box，border和padding计算入width之内
+				*/
+				box-sizing:border-box;
+			}
+			/*css 类选择器  .类名{}*/
+			.panel{
+				margin:0;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- div section article ，语义是从无到有，逐渐增强的。
+		div 无任何语义，仅仅用作样式化或者脚本化，
+		对于一段主题性的内容，则就适用 section，
+		而假如这段内容可以脱离上下文，作为完整的独立存在的一段内容，则就适用 article。
+		原则上来说，能使用 article 的时候，也是可以使用 section 的，
+		但是实际上，假如使用 article 更合适，那么就不要使用 section 。 
+		作为语义化标签，section 应用的典型场景有文章的章节、标签对话框中的标签页、或者论文中有编号的部分。
+		一般来说，当元素内容明确地出现在文档大纲中时，section 就是适用的。
+		-->
+		<article class="tabs">
+			<input checked id = "one" name="tabs" type="radio">
+			<label for="one">
+				tab one
+			</label>
+			<input id="two" name="tabs" type="radio" value="two">
+			<label for="two">
+				tab two
+			</label>
+			<input checked id = "three" name="tabs" type="radio">
+			<label for="three">
+				tab three
+			</label>
+			<input id="four" name="tabs" type="radio">
+			<label for="four">
+				tab four
+			</label>
+			<div class="panels">
+				<div class="panel">
+					<h2>this is panel one</h2>
+					<p>this is panel one-one</p>
+				</div>
+				<div class="panel">
+					<h2>this is panel two</h2>
+					<p>this is panel tow-one</p>
+				</div>
+				<div class="panel">
+					<h2>this is panel three</h2>
+					<p>this is panel three-one</p>
+				</div>
+				<div class="panel">
+					<h2>this is panel four</h2>
+					<p>this is panel four-one</p>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>

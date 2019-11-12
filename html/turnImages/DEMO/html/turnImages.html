@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>自动轮播</title>
+	<link type="text/css" rel="stylesheet" href="../css/carousel.css">
+	<style type="text/css">
+		/*margin   外边距  */
+		.caroursel{margin:30px auto;}
+		*{
+			background-color:#f1f1f1;
+		}
+	</style>
+	<!-- body{background-color: #2A2A2A;} -->
+	<!-- IE兼容 
+	<[if IE]>
+		<script src="../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+		<article class="jq22-container" style="margin:0; padding:0;border:0;" >
+			<!--data-setting = '{
+		  "width":1000,         //旋转木马的宽度
+		  "height":270,         //旋转木马的高度
+		  "posterWidth":640,    //当前显示的图片的宽度
+		  "posterHeight":270,   //当前显示的图片的高度
+		  "scale":0.8,          //缩放值
+		  "algin":"middle",     //对齐方式
+		  "speed":"1000",       //动画速度
+		  "isAutoplay":"true",  //自动播放
+		  "dealy":"1000"        //延迟时间-->
+			<div class = "caroursel poster-main" data-setting = '{
+				"width":1000,
+				"height":270,
+				"posterWidth":640,
+				"posterHeight":270,
+				"scale":0.8,
+				"dealy":"5000",		
+				"algin":"middle",
+				"speed":"1000"
+			}' >
+				<ul class = "poster-list">
+					<!-- 图片数量需为奇数张 -->
+					<li class = "poster-item"><img src="../image/a1.jpg" width = "100%" height="100%" onclick="alert('1111')"></li>
+					<li class = "poster-item"><img src="../image/a2.jpg" width = "100%" height="100%" onclick="alert('2222')"></li>
+					<li class = "poster-item"><img src="../image/a3.jpg" width = "100%" height="100%" onclick="alert('3333')"></li>
+					<li class = "poster-item"><img src="../image/a4.jpg" width = "100%" height="100%" onclick="alert('4444')"></li>
+					<li class = "poster-item"><img src="../image/a5.png" width = "100%" height="100%" onclick="alert('5555')"></li>
+					<li class = "poster-item"><img src="../image/a6.png"  width = "100%" height="100%" onclick="alert('6666')"></li>
+					<li class = "poster-item"><img src="../image/a1.jpg"  width = "100%" height="100%" onclick="alert('1111')"></li>
+				</ul>
+				
+				<div class = "poster-btn poster-prev-btn"></div>
+				<div class = "poster-btn poster-next-btn"></div>
+			</div>
+			
+		</article>
+		
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery.carousel.js"></script>
+		<script>
+			Caroursel.init($('.caroursel'))
+		</script>
+</body>
+</html>

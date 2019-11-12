@@ -1,0 +1,155 @@
+<!DOCTYPE html><!-- 声明文档类型 -->
+<!-- 雨 -->
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+		<title>雨滴</title>
+		<style>
+			/*选择器  所有*/
+			*{
+				/*外边距*/
+				margin:0;
+				/*内边距*/
+				padding:0;
+			}
+			/*标签选择器*/
+			canvas{
+				/*
+					其中常用的的有none、inline、block、inline-block。分别的意思是：
+					1、none： 元素不会显示，而且改元素现实的空间也不会保留。但有另外一个 visibility: hidden， 是保留元素的空间的。
+					2、inline： display的默认属性。将元素显示为内联元素，元素前后没有换行符。我们知道内联元素是无法设置宽高的，所以一旦将元素的display 属性设为 inline， 设置属性height和width是没有用的。此时影响它的高度一般是内部元素的高度（font-size）和padding。
+					3、block： 将元素将显示为块级元素，元素前后会带有换行符。设置为block后，元素可以设置width和height了。元素独占一行。
+					4、inline-block：行内块元素。这个属性值融合了inline 和 block 的特性，即是它既是内联元素，又可以设置width和height。
+				*/
+				display:block;
+				background:#000;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- HTML5 的 canvas 元素使用 JavaScript 在网页上绘制图像。 -->
+		<canvas id="canvas">
+		</canvas>
+	</body>
+	
+	<script type="text/javascript">
+			//js代码要在html执行之后执行
+			//声明变量，保存canvas画布
+			var can = document.getElementById("canvas");
+			//设置canvas绘图环境
+			var cxt = can.getContext("2d");
+			//获取窗口内容的宽高
+			var w = can.width = window.innerWidth;
+			var h = can.height = window.innerHeight;
+			//设置雨滴数量
+			var count = 30;
+			//用来存放实例化雨滴
+			var drops = [];
+			//监听浏览器窗口的变化
+			window.onresize = function(){
+				w = can.width = window.innerWidth;
+				h = can.height = window.innerHeight;
+			}
+			
+			//构造雨滴对象
+			function Drop(){}
+			//给雨滴添加原型
+			Drop.prototype = {
+				//初始化方法
+				init:function(){
+					this.x = random(0,w);
+					this.y = 0;
+					//y方向的随机速度
+					this.vy = random(4,5);
+					//雨滴下落的最大值
+					this.l = random(h*0.8,h*0.9);
+					//原型的初始半径
+					this.r = 1;
+					//半径增大的速度
+					this.vr = 1;
+					//初始透明度0
+					this.a = 1
+					//透明度变化系数
+					this.va = 0.96;
+				},
+				//绘制雨滴
+				draw:function(){
+					if(this.y > this.l){
+						//绘制波纹
+						cxt.beginPath();
+						//开始路径
+						cxt.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+						cxt.strokeStyle = "rgba(0,255,255,"+this.a+")";
+						cxt.stroke();
+					}else{
+						//绘制雨滴
+						cxt.fillStyle = "#0ff";
+						cxt.fillRect(this.x,this.y,2,10);
+					}
+					//更新坐标重新绘制
+					this.update();
+				},
+				//更新坐标
+				update:function(){
+					if(this.y < this.l){
+						//y坐标增大
+						this.y += this.vy;
+					} else {
+						//半径增大
+						if(this.a > 0.03){
+							this.r += this.vr;
+							if(this.r > 50){
+								this.a *= this.va;
+							}
+						} else {
+							//重新初始化雨滴的属性
+							this.init();
+						}
+						
+						
+					}
+				}
+			}
+			
+			function setup(){
+				for(var i = 0;i<count;i++){
+					(function(j){
+						setTimeout(function(){
+							var drop = new Drop();
+							drop.init();
+							drops.push(drop);
+						},j*200)
+					}(i))
+				}
+			}
+			window.requestAnimFrame = (
+				function(){
+					return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							function(callback){
+								window.setTimeout(callback,1000/60);
+							}
+				}
+			)();
+			function move(){
+				//绘制一个透明层
+				cxt.fillStyle = "rgba(0,0,0,0.1)";
+				cxt.fillRect(0,0,w,h);
+				//第一次绘制：先绘制透明层 再绘制雨滴
+				//第二次绘制：绘制透明层（覆盖上一次绘制雨滴）再绘制雨滴
+				for(var i=0;i<drops.length;i++){
+					drops[i].draw();
+				}
+				//原生js经动画
+				requestAnimFrame(move);
+			}
+			
+			setup();
+			move();
+			//生成随机数
+			function random(min,max){
+				//min~max之间的随机数
+				return Math.random()*(max-min) + min;
+			}
+		</script>
+</html>
