@@ -1,4 +1,4 @@
-# GIT SHEEL
+# GIT SHELL
 
 
 git clone https://github.com/***.git
