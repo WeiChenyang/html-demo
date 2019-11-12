@@ -2,6 +2,11 @@
 html demo
 
 
+
+
+
+git clone https://github.com/***.git
+
 git 初次提交/更新
 
 第1步：建立本地 git 仓库，cd 到你的本地项目根目录下，执行 git init 命令
